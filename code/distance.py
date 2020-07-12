@@ -100,25 +100,60 @@ def distance_between_atoms(atom1, atom2, f_weights, v_weight):
     return distance
 
 
-def compute_noninfinity(sorted_distances):
+def compute_noninfinity(sorted_distances, value):
     try:
-        index = sorted_distances.index(float('inf'))
+        index = sorted_distances.index(value)
         n = index
     except:
         n = len(sorted_distances)
     return n
 
 
-def distance_between_formulas(formula1, formula2, f_weights, v_weight):
-    atom_distances = [distance_between_atoms(atom1, atom2, f_weights, v_weight)
-                      for atom1 in formula1 for atom2 in formula2]
-    combined_distances = [np.sqrt(np.sum(np.power(score, 2)))
-                          for score in atom_distances]
-    sorted_distances = sorted(combined_distances)
-    non_inf_num = compute_noninfinity(sorted_distances)
-    if non_inf_num == 0:
-        distance = np.float("inf")
+def distance_between_atom_and_formula(atom, formula, f_weights, v_weight):
+    distances = [distance_between_atoms(
+        atom, f_atom).tolist() for f_atom in formula]
+    return min(distances)
+
+
+def distance_between_formulas(formula1, formula2, f_weights,
+                              v_weight, metric, combine):
+    if metric == "average" or metric == "weighted_sum" \
+            or metric == "weighted_average":
+        atom_distances = [distance_between_atom_and_formula(
+            atom, formula2, f_weights, v_weight) for atom in formula1]
+    if metric == "symmetry":
+        atom_distances = [distance_between_atoms(atom1, atom2,
+                                                 f_weights, v_weight).tolist()
+                          for atom1 in formula1 for atom2 in formula2]
+
+    if not combine:
+        sorted_distances = sorted(atom_distances)
+        non_inf_num = compute_noninfinity(
+            sorted_distances, [float("inf"), float("inf")])
+        if non_inf_num == 0:
+            distance = [float("inf"), float("inf")]
+        else:
+            temp = np.sum(np.array(sorted_distances[: non_inf_num]), axis=0)
+            if metric == "average":
+                distance = temp / non_inf_num
+            if metric == "weighted_sum":
+                distance = temp * len(sorted_distances) / non_inf_num
+            if metric == "weighted_average" or metric == "symmetry":
+                distance = temp * len(sorted_distances) / pow(non_inf_num, 2)
     else:
-        distance = np.sum(np.array(sorted_distances[: non_inf_num])) * \
-            len(sorted_distances) / pow(non_inf_num, 2)
+        combined_distances = [np.sqrt(np.sum(np.power(np.array(score), 2)))
+                              for score in atom_distances]
+        sorted_distances = sorted(combined_distances)
+        non_inf_num = compute_noninfinity(
+            sorted_distances, np.array(float("inf")))
+        if non_inf_num == 0:
+            distance = np.float("inf")
+        else:
+            temp = np.sum(np.array(sorted_distances[: non_inf_num]))
+            if metric == "average":
+                distance = temp / non_inf_num
+            if metric == "weighted_sum":
+                distance = temp * len(sorted_distances) / non_inf_num
+            if metric == "weighted_average" or metric == "symmetry":
+                distance = temp * len(sorted_distances) / pow(non_inf_num, 2)
     return distance
