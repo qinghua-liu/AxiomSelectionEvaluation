@@ -111,12 +111,15 @@ def compute_noninfinity(sorted_distances, value):
 
 def distance_between_atom_and_formula(atom, formula, f_weights, v_weight):
     distances = [distance_between_atoms(
-        atom, f_atom).tolist() for f_atom in formula]
+        atom, f_atom, f_weights, v_weight).tolist() for f_atom in formula]
     return min(distances)
 
 
 def distance_between_formulas(formula1, formula2, f_weights,
                               v_weight, metric, combine):
+    """
+        formula2: conjecture
+    """
     if metric == "average" or metric == "weighted_sum" \
             or metric == "weighted_average":
         atom_distances = [distance_between_atom_and_formula(
@@ -132,6 +135,7 @@ def distance_between_formulas(formula1, formula2, f_weights,
             sorted_distances, [float("inf"), float("inf")])
         if non_inf_num == 0:
             distance = [float("inf"), float("inf")]
+            return distance
         else:
             temp = np.sum(np.array(sorted_distances[: non_inf_num]), axis=0)
             if metric == "average":
@@ -140,6 +144,8 @@ def distance_between_formulas(formula1, formula2, f_weights,
                 distance = temp * len(sorted_distances) / non_inf_num
             if metric == "weighted_average" or metric == "symmetry":
                 distance = temp * len(sorted_distances) / pow(non_inf_num, 2)
+            return distance.tolist()
+
     else:
         combined_distances = [np.sqrt(np.sum(np.power(np.array(score), 2)))
                               for score in atom_distances]
@@ -148,6 +154,7 @@ def distance_between_formulas(formula1, formula2, f_weights,
             sorted_distances, np.array(float("inf")))
         if non_inf_num == 0:
             distance = np.float("inf")
+            return distance
         else:
             temp = np.sum(np.array(sorted_distances[: non_inf_num]))
             if metric == "average":
@@ -156,4 +163,4 @@ def distance_between_formulas(formula1, formula2, f_weights,
                 distance = temp * len(sorted_distances) / non_inf_num
             if metric == "weighted_average" or metric == "symmetry":
                 distance = temp * len(sorted_distances) / pow(non_inf_num, 2)
-    return distance
+            return distance
