@@ -2,6 +2,8 @@ import csv
 import json
 import os
 
+from utils import read_lines
+
 
 def select_premises_with_score_zero(ranking_file):
     with open(ranking_file, "r") as f:
@@ -48,3 +50,79 @@ def ranking_density(proof_file, ranking_dir):
     if enough_couner > 0:
         en_ranking_density = sum_ranking_density / enough_couner
     return ranking_density, en_ranking_density
+
+
+def E_proof_statistic(output_dir):
+    filenames = os.listdir(output_dir)
+    proofs = 0
+    for name in filenames:
+        file_path = os.path.join(output_dir, name)
+        lines = read_lines(file_path)
+        if "# Proof found!" in lines and "# SZS status Theorem" in lines:
+            proofs += 1
+    return proofs
+
+
+def Vampire_proof_statistic(output_dir):
+    filenames = os.listdir(output_dir)
+    proofs = 0
+    for name in filenames:
+        file_path = os.path.join(output_dir, name)
+        lines = read_lines(file_path)
+        if '% Refutation found. Thanks to Tanya!' in lines:
+            proofs += 1
+    return proofs
+
+
+def E_proof_distribution(problem_dir, output_dir):
+    filenames = os.listdir(output_dir)
+    distribution = {32: 0, 64: 0, 128: 0, 256: 0, 512: 0, 1024: 0}
+    for name in filenames:
+        output_file = os.path.join(output_dir, name)
+        lines = read_lines(output_file)
+        if "# Proof found!" in lines and "# SZS status Theorem" in lines:
+            problem_file = os.path.join(problem_dir, name)
+            formulas = read_lines(problem_file)
+            if len(formulas) - 1 <= 32:
+                distribution[32] += 1
+            if len(formulas) - 1 > 32 and len(formulas) - 1 <= 64:
+                distribution[64] += 1
+            if len(formulas) - 1 > 64 and len(formulas) - 1 <= 128:
+                distribution[128] += 1
+            if len(formulas) - 1 > 128 and len(formulas) - 1 <= 256:
+                distribution[256] += 1
+            if len(formulas) - 1 > 256 and len(formulas) - 1 <= 512:
+                distribution[512] += 1
+            if len(formulas) - 1 > 512 and len(formulas) - 1 <= 1024:
+                distribution[1024] += 1
+    return distribution
+
+
+def Vampire_proof_distribution(problem_dir, output_dir):
+    filenames = os.listdir(output_dir)
+    distribution = {32: 0, 64: 0, 128: 0, 256: 0, 512: 0, 1024: 0}
+    for name in filenames:
+        output_file = os.path.join(output_dir, name)
+        lines = read_lines(output_file)
+        if '% Refutation found. Thanks to Tanya!' in lines:
+            problem_file = os.path.join(problem_dir, name)
+            formulas = read_lines(problem_file)
+            if len(formulas) - 1 <= 32:
+                distribution[32] += 1
+            if len(formulas) - 1 > 32 and len(formulas) - 1 <= 64:
+                distribution[64] += 1
+            if len(formulas) - 1 > 64 and len(formulas) - 1 <= 128:
+                distribution[128] += 1
+            if len(formulas) - 1 > 128 and len(formulas) - 1 <= 256:
+                distribution[256] += 1
+            if len(formulas) - 1 > 256 and len(formulas) - 1 <= 512:
+                distribution[512] += 1
+            if len(formulas) - 1 > 512 and len(formulas) - 1 <= 1024:
+                distribution[1024] += 1
+    return distribution
+
+
+if __name__ == "__main__":
+    problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average"
+    output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average"
+    d = E_proof_distribution(problem_dir, output_dir)
