@@ -22,7 +22,13 @@ def extract_useful_premises_from_E(lines):
     return names
 
 
-def ranking_precision(problem_dir, output_dir):
+def extract_selected_premises_from_Vampire(lines):
+    names = [line.split(",")[0].replace("tff(", "")
+             for line in lines if "tff" in line and "axiom" in line]
+    return len(names) + 1
+
+
+def ranking_precision(problem_dir, output_dir, source):
     filenames = os.listdir(output_dir)
     precision = 0.0
     counter = 0
@@ -31,10 +37,14 @@ def ranking_precision(problem_dir, output_dir):
         lines = read_lines(output_file)
         if "# Proof found!" in lines and "# SZS status Theorem" in lines:
             counter += 1
-            selected_names = extract_useful_premises_from_E(lines)
+            useful_names = extract_useful_premises_from_E(lines)
             problem_file = os.path.join(problem_dir, name)
-            problem_len = len(read_lines(problem_file))
-            precision += len(selected_names) / problem_len
+            if source == "Vampire":
+                problem_len = extract_selected_premises_from_Vampire(
+                    read_lines(problem_file))
+            else:
+                problem_len = len(read_lines(problem_file))
+            precision += len(useful_names) / problem_len
 
     precision = precision / counter
     return precision, counter
