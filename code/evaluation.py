@@ -14,6 +14,32 @@ def select_premises_with_score_zero(ranking_file):
     return prems
 
 
+def extract_useful_premises_from_E(lines):
+    names = []
+    for line in lines:
+        if "fof" in line and "file" in line:
+            names.append(line.split(",")[0].replace("fof(", ""))
+    return names
+
+
+def ranking_precision(problem_dir, output_dir):
+    filenames = os.listdir(output_dir)
+    precision = 0.0
+    counter = 0
+    for name in filenames:
+        output_file = os.path.join(output_dir, name)
+        lines = read_lines(output_file)
+        if "# Proof found!" in lines and "# SZS status Theorem" in lines:
+            counter += 1
+            selected_names = extract_useful_premises_from_E(lines)
+            problem_file = os.path.join(problem_dir, name)
+            problem_len = len(read_lines(problem_file))
+            precision += len(selected_names) / problem_len
+
+    precision = precision / counter
+    return precision, counter
+
+
 def ranking_density(proof_file, ranking_dir):
     with open(proof_file, "r") as f:
         proof_dict = json.loads(f.read())
@@ -125,4 +151,6 @@ def Vampire_proof_distribution(problem_dir, output_dir):
 if __name__ == "__main__":
     problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average"
     output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average"
-    d = E_proof_distribution(problem_dir, output_dir)
+    a, b = ranking_precision(problem_dir, output_dir)
+    print(a)
+    print(b)
