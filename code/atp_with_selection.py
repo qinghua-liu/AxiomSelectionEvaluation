@@ -60,11 +60,11 @@ def run_Vampire_prover_with_only_selection(input_file, output_file):
 
 def run_E_prover_with_only_selection(input_file, output_file):
     output = open(output_file, "w+")
-    subprocess([
+    subprocess.call([
         PATH_TO_E,
         "--sine=Auto",
         "--tstp-format",
-        "—prune",
+        "-prune",
         input_file],
         stdout=output, stderr=open(os.devnull, "w"))
 
