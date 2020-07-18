@@ -1,33 +1,32 @@
+import os
+from joblib import Parallel, delayed
 from tqdm import tqdm
-import csv
-import pickle
-from data_structure import Chronology, Symbol_Features, Atom_Features
-from distance import distance_between_formulas
-from selection import problem_weights
+from data_structure import Problem_Order
+from atp import run_E_prover
+from atp_with_selection import run_E_prover_with_only_selection
+
+
+def process(thm, problem_dir,
+            selected_problem_dir, output_dir):
+    input_file = os.path.join(problem_dir, thm)
+    selected_file = os.path.join(selected_problem_dir, thm)
+    run_E_prover_with_only_selection(input_file, selected_file)
+    output_file = os.path.join(output_dir, thm)
+    run_E_prover(selected_file, output_file, 60)
+
 
 if __name__ == "__main__":
-    thm = "t12_yellow_6"
-    atom_features = Atom_Features("../data/atom_features")
-    symbol_features = Symbol_Features("../data/symbol_features")
-    chronology = Chronology("../data/chronology")
+    problem_order = Problem_Order("../data/ProblemsInMMLOrder")
+    problem_dir = "../problem/no_selection"
+    selected_problem_dir = "../problem/E_selection"
+    output_dir = "../E_output/E_selection"
 
-    available_prems = chronology.available_premises(thm)
-    f_weights, v_weight = problem_weights(
-        thm, available_prems, symbol_features)
-    problem = [thm] + available_prems
-    formula2score = []
-    for i, f1 in enumerate(tqdm(problem)):
-        for f2 in problem[i + 1:]:
-            d = distance_between_formulas(
-                atom_features[f1], atom_features[f2],
-                f_weights, v_weight, "symmetry", True)
-            formula2score.append([f1, f2, d])
-    print(len(formula2score))
-    with open("../t12_yellow_6.pkl", "wb+") as f:
-        pickle.dump(formula2score, f, protocol=pickle.HIGHEST_PROTOCOL)
+    if not os.path.exists(selected_problem_dir):
+        os.mkdir(selected_problem_dir)
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
 
-    header = ["formula", "formula", "distance"]
-    with open("../t12_yellow_6.csv", "w+") as f:
-        csv_writer = csv.writer(f)
-        csv_writer.writerow(header)
-        csv_writer.writerows(formula2score)
+    Parallel(n_jobs=10)(delayed(process)(thm, problem_dir,
+                                         selected_problem_dir,
+                                         output_dir)
+                        for thm in tqdm(problem_order))
