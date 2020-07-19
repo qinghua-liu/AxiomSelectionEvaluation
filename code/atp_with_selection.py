@@ -64,7 +64,8 @@ def run_E_prover_with_only_selection(input_file, output_file):
         PATH_TO_E,
         "--sine=Auto",
         "--tstp-format",
-        "-prune",
+        "--prune",
+        "--free-numbers",
         input_file],
         stdout=output, stderr=open(os.devnull, "w"))
 
