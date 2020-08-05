@@ -17,13 +17,14 @@ if __name__ == "__main__":
     statements = Statements("../data/statements")
     problem_dir = "../Graph_Embedding/VGAE/input"
     output_dir = "../Graph_Embedding/VGAE/output"
-    rankings = pickle.load("../Graph_Embedding/VGAE/VGAE.pkl")
+    with open("../Graph_Embedding/VGAE/VGAE_0804.pkl", "r") as f:
+        rankings = pickle.load(f)
     slice_list = [32, 64, 128, 256, 512, 1024]
     if not os.path.exists(problem_dir):
         os.makedirs(problem_dir)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    Parallel(n_jobs=10)(delayed(process)(thm, rankings,
-                                         slice_list, statements,
-                                         problem_dir, output_dir)
-                        for thm in tqdm(problem_order))
+    Parallel(n_jobs=5)(delayed(process)(thm, rankings,
+                                        slice_list, statements,
+                                        problem_dir, output_dir)
+                       for thm in tqdm(problem_order))
