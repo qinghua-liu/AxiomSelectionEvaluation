@@ -7,7 +7,7 @@ PATH_TO_E = ""
 PATH_TO_Vampire = ""
 
 def run_E_prover(input_file, output_file, cpu_time):
-
+    #run without selection
     output = open(output_file, 'w+')
     subprocess.call([
         PATH_TO_E,
@@ -27,6 +27,7 @@ def run_E_prover(input_file, output_file, cpu_time):
 
 
 def run_Vampire_prover(input_file, output_file, cpu_time):
+    # run without selection
     output = open(output_file, 'w+')
     subprocess.call([
         PATH_TO_Vampire,
