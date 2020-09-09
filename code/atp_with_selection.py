@@ -1,14 +1,15 @@
 import os
 import subprocess
-from atp import run_E_prover, run_Vampire_prover
-from utils import write_problem
-from data_structure import Statements, Chronology, Problem_Order
-from joblib import Parallel, delayed
-from tqdm import tqdm
+# from atp import run_E_prover, run_Vampire_prover
+# from utils import write_problem
+# from data_structure import Statements, Chronology, Problem_Order
+# from joblib import Parallel, delayed
+# from tqdm import tqdm
 
 
 PATH_TO_E = "/exp/home/tptp/Systems/E---2.5/eprover"
 PATH_TO_Vampire = "/exp/home/tptp/Systems/Vampire---4.5/vampire"
+
 
 def run_E_prover_with_selection(input_file, output_file, cpu_time):
     # run E with SInE selection
