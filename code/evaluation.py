@@ -158,9 +158,9 @@ def Vampire_proof_distribution(problem_dir, output_dir):
     return distribution
 
 
-if __name__ == "__main__":
-    problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average"
-    output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average"
-    a, b = ranking_precision(problem_dir, output_dir)
-    print(a)
-    print(b)
+# if __name__ == "__main__":
+#     problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average"
+#     output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average"
+#     a, b = ranking_precision(problem_dir, output_dir)
+#     print(a)
+#     print(b)
