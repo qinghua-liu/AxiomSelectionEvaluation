@@ -101,7 +101,7 @@ def problem_weights(symbol_features):
 
 # write_names("./clauseFile.txt", "names")
 
-# write_atom_features("./clauseFile.txt", "atom_features")
+# write_symbol_features("./clauseFile.txt", "symbol_features")
 
 
 if __name__ == "__main__":
