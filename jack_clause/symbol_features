@@ -3,54 +3,70 @@
 3: r2_hidden  e  k3_xboole_0  r2_hidden
 4: k2_xboole_0  k4_xboole_0  esk1_0  k4_xboole_0  esk2_0  esk1_0  k4_xboole_0  k4_xboole_0  esk2_0  esk1_0  esk1_0  e  k2_xboole_0  esk1_0  esk2_0
 5: e  r2_hidden  esk3_2  r2_hidden  esk3_2
-6: k3_xboole_0  k4_xboole_0  k4_xboole_0  e  k4_xboole_0  k2_xboole_0
-7: e  v1_xboole_0  v1_xboole_0
-8: v1_xboole_0  r2_hidden
-9: v1_relat_1  k5_relat_1  v1_relat_1  v1_relat_1
-10: v1_relat_1  k7_relat_1  v1_relat_1  v1_funct_1
-11: r2_hidden  e  k3_xboole_0  r2_hidden
-12: v1_xboole_0  r2_hidden  m1_subset_1  k1_zfmisc_1
-13: r2_hidden  k4_tarski  e  k1_wellord1  v1_relat_1  r2_hidden
-14: k3_relat_1  e  k2_relat_1  v1_relat_1  v1_relat_1  v1_relat_1  v1_funct_1  r3_wellord1
-15: e  v1_xboole_0  v1_xboole_0
-16: m1_subset_1  r2_hidden
+6: e  v1_xboole_0  v1_xboole_0
+7: k3_xboole_0  k4_xboole_0  k4_xboole_0  e  k4_xboole_0  k2_xboole_0
+8: e  v1_xboole_0  v1_xboole_0
+9: v1_xboole_0  r2_hidden
+10: v1_relat_1  k5_relat_1  v1_relat_1  v1_relat_1
+11: v1_relat_1  k7_relat_1  v1_relat_1  v1_funct_1
+12: e  r1_xboole_0  k1_tarski  k1_tarski
+13: r2_hidden  e  k3_xboole_0  r2_hidden
+14: v1_xboole_0  r2_hidden  m1_subset_1  k1_zfmisc_1
+15: r2_hidden  k4_tarski  e  k1_wellord1  v1_relat_1  r2_hidden
+16: k3_relat_1  e  k2_relat_1  v1_relat_1  v1_relat_1  v1_relat_1  v1_funct_1  r3_wellord1
 17: e  v1_xboole_0  v1_xboole_0
-18: l1_struct_0  l1_pre_topc
-19: v5_orders_2  l1_orders_2  r2_orders_2  r1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
-20: v2_struct_0  r2_hidden  a_2_1_orders_2  e  v3_orders_2  v4_orders_2  v5_orders_2  l1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  k1_zfmisc_1  u1_struct_0  r2_orders_2  esk14_4
-21: v2_struct_0  r1_lattices  k2_lattices  e  v8_lattices  v9_lattices  l3_lattices  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
-22: v1_xboole_0  r2_hidden
-23: e  v1_xboole_0  v1_xboole_0
-24: v2_struct_0  m1_subset_1  k5_lattices  u1_struct_0  l1_lattices
-25: k2_pre_topc  k2_pre_topc  e  k2_pre_topc  l1_pre_topc  m1_subset_1  k1_zfmisc_1  u1_struct_0
-26: e  k3_xboole_0  r2_hidden  esk4_3  r2_hidden  esk4_3
-27: m1_subset_1  r2_hidden  m1_subset_1  k1_zfmisc_1
-28: m1_subset_1  esk6_1
-29: v1_tops_2  esk2_0  esk1_0
-30: r2_hidden  e  k3_xboole_0  r2_hidden
-31: v2_struct_0  v1_xboole_0  l1_pre_topc  v2_struct_0  k1_pre_topc  m1_subset_1  k1_zfmisc_1  u1_struct_0
-32: e  r1_tarski  r1_tarski
-33: r1_orders_2  m1_subset_1  esk4_4  u1_struct_0  e  k10_lattice3  v5_orders_2  l1_orders_2  r1_orders_2  r1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
-34: v4_lattice3  esk1_0
-35: r1_orders_2  l1_orders_2  r2_hidden  r1_lattice3  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
-36: r1_yellow_0  r2_lattice3  esk12_3  v5_orders_2  l1_orders_2  r2_lattice3  m1_subset_1  u1_struct_0
-37: r1_yellow_0  esk1_0  esk2_0
-38: e  esk7_2  m1_subset_1  esk8_3  u1_struct_0  l1_orders_2  r2_yellow_0  r1_lattice3  m1_subset_1  u1_struct_0
-39: r2_lattice3  k2_xboole_0  l1_orders_2  r2_lattice3  r2_lattice3  m1_subset_1  u1_struct_0
-40: m1_subset_1  esk24_4  k1_zfmisc_1  r2_hidden  epred1_3  m1_subset_1  u1_struct_0
-41: v2_pre_topc  esk3_0
-42: m1_subset_1  k2_tmap_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0  v1_funct_1  l1_struct_0  l1_struct_0  l1_struct_0  v1_funct_2  u1_struct_0  u1_struct_0  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0
-43: v2_struct_0  v2_struct_0  v2_struct_0  r1_tmap_1  k2_tmap_1  e  v2_pre_topc  v2_pre_topc  l1_pre_topc  l1_pre_topc  v1_funct_1  m1_pre_topc  r2_hidden  v3_pre_topc  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  r1_tarski  u1_struct_0  r1_tmap_1  m1_subset_1  k1_zfmisc_1  u1_struct_0  v1_funct_2  u1_struct_0  u1_struct_0  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0
-44: l1_pre_topc  l1_pre_topc  m1_pre_topc
-45: m1_subset_1  esk5_0  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  esk1_0  u1_struct_0  esk2_0
-46: m1_subset_1  r2_hidden
-47: l1_struct_0  l1_pre_topc
-48: v1_xboole_0  v1_xboole_0  esk22_1
-49: m1_subset_1  esk4_0  u1_struct_0  esk2_0
-50: l1_struct_0  esk10_0
-51: m1_subset_1  r2_hidden  m1_subset_1  k1_zfmisc_1
-52: v2_struct_0  esk1_0
-53: e  k12_yellow_6  v2_struct_0  r2_hidden  esk14_2  k6_yellow_6  r2_hidden  k4_tarski  esk14_2  esk15_2  l1_pre_topc  v2_pre_topc  m4_yellow_6
-54: v1_funct_2  e  k1_xboole_0  k1_relset_1  e  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1
-55: r2_hidden  esk3_0  esk2_0  v2_waybel_0  esk2_0  k3_yellow_1  esk1_0
-56: l1_waybel_0  esk2_0  esk1_0
+18: m1_subset_1  r2_hidden
+19: e  v1_xboole_0  v1_xboole_0
+20: l1_struct_0  l1_pre_topc
+21: k9_subset_1  e  m1_subset_1  k1_zfmisc_1
+22: v5_orders_2  l1_orders_2  r2_orders_2  r1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
+23: v2_struct_0  r2_hidden  a_2_1_orders_2  e  v3_orders_2  v4_orders_2  v5_orders_2  l1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  k1_zfmisc_1  u1_struct_0  r2_orders_2  esk14_4
+24: v2_struct_0  r1_lattices  k2_lattices  e  v8_lattices  v9_lattices  l3_lattices  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
+25: m1_subset_1  u1_lattices  k1_zfmisc_1  k2_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0  u1_struct_0  l1_lattices
+26: v1_xboole_0  r2_hidden
+27: e  v1_xboole_0  v1_xboole_0
+28: v2_struct_0  m1_subset_1  k5_lattices  u1_struct_0  l1_lattices
+29: k2_pre_topc  k2_pre_topc  e  k2_pre_topc  l1_pre_topc  m1_subset_1  k1_zfmisc_1  u1_struct_0
+30: e  k3_xboole_0  r2_hidden  esk4_3  r2_hidden  esk4_3
+31: m1_subset_1  r2_hidden  m1_subset_1  k1_zfmisc_1
+32: m1_subset_1  esk6_1
+33: v1_tops_2  esk2_0  esk1_0
+34: r2_hidden  e  k3_xboole_0  r2_hidden
+35: e  k3_xboole_0  r2_hidden  esk10_3  r2_hidden  esk10_3  r2_hidden  esk10_3
+36: k9_subset_1  e  k9_subset_1  m1_subset_1  k1_zfmisc_1
+37: v2_struct_0  v1_xboole_0  l1_pre_topc  v2_struct_0  k1_pre_topc  m1_subset_1  k1_zfmisc_1  u1_struct_0
+38: e  r1_tarski  r1_tarski
+39: m1_subset_1  r2_hidden  m1_subset_1  k1_zfmisc_1
+40: l1_struct_0  l1_lattices
+41: r1_orders_2  m1_subset_1  esk4_4  u1_struct_0  e  k10_lattice3  v5_orders_2  l1_orders_2  r1_orders_2  r1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
+42: v2_struct_0  r3_orders_2  v3_orders_2  l1_orders_2  r1_orders_2  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
+43: v4_lattice3  esk1_0
+44: r1_orders_2  l1_orders_2  r2_hidden  r1_lattice3  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0
+45: r1_yellow_0  r2_lattice3  esk12_3  v5_orders_2  l1_orders_2  r2_lattice3  m1_subset_1  u1_struct_0
+46: r1_yellow_0  esk1_0  esk2_0
+47: r2_lattice3  e  k1_yellow_0  v5_orders_2  l1_orders_2  r1_yellow_0  m1_subset_1  u1_struct_0
+48: e  esk7_2  m1_subset_1  esk8_3  u1_struct_0  l1_orders_2  r2_yellow_0  r1_lattice3  m1_subset_1  u1_struct_0
+49: r2_lattice3  k2_xboole_0  l1_orders_2  r2_lattice3  r2_lattice3  m1_subset_1  u1_struct_0
+50: m1_subset_1  esk24_4  k1_zfmisc_1  r2_hidden  epred1_3  m1_subset_1  u1_struct_0
+51: v2_struct_0  r2_hidden  esk12_3  v2_pre_topc  l1_pre_topc  m1_connsp_2  m1_subset_1  u1_struct_0  m1_subset_1  k1_zfmisc_1  u1_struct_0
+52: v2_pre_topc  esk3_0
+53: m1_subset_1  k2_tmap_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0  v1_funct_1  l1_struct_0  l1_struct_0  l1_struct_0  v1_funct_2  u1_struct_0  u1_struct_0  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0
+54: v2_struct_0  v2_struct_0  v2_struct_0  r1_tmap_1  k2_tmap_1  e  v2_pre_topc  v2_pre_topc  l1_pre_topc  l1_pre_topc  v1_funct_1  m1_pre_topc  r2_hidden  v3_pre_topc  m1_subset_1  u1_struct_0  m1_subset_1  u1_struct_0  r1_tarski  u1_struct_0  r1_tmap_1  m1_subset_1  k1_zfmisc_1  u1_struct_0  v1_funct_2  u1_struct_0  u1_struct_0  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  u1_struct_0
+55: l1_pre_topc  esk3_0
+56: l1_pre_topc  l1_pre_topc  m1_pre_topc
+57: l1_pre_topc  l1_pre_topc  m1_pre_topc
+58: m1_subset_1  esk5_0  k1_zfmisc_1  k2_zfmisc_1  u1_struct_0  esk1_0  u1_struct_0  esk2_0
+59: m1_subset_1  r2_hidden
+60: l1_struct_0  l1_pre_topc
+61: v1_xboole_0  v1_xboole_0  esk22_1
+62: m1_subset_1  esk4_0  u1_struct_0  esk2_0
+63: l1_struct_0  esk10_0
+64: m1_subset_1  r2_hidden  m1_subset_1  k1_zfmisc_1
+65: v2_struct_0  esk1_0
+66: e  k12_yellow_6  v2_struct_0  r2_hidden  esk14_2  k6_yellow_6  r2_hidden  k4_tarski  esk14_2  esk15_2  l1_pre_topc  v2_pre_topc  m4_yellow_6
+67: v1_funct_2  e  k1_xboole_0  k1_relset_1  e  m1_subset_1  k1_zfmisc_1  k2_zfmisc_1
+68: r2_hidden  esk3_0  esk2_0  v2_waybel_0  esk2_0  k3_yellow_1  esk1_0
+69: e  k1_tarski  esk5_2  e  r2_hidden  esk5_2
+70: l1_waybel_0  esk2_0  esk1_0
+71: e  k1_xboole_0  v1_xboole_0
+72: m1_subset_1  r2_hidden
