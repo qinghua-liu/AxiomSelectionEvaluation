@@ -32,7 +32,7 @@ def run_Vampire_prover(input_file, output_file, cpu_time):
     output = open(output_file, 'w+')
     subprocess.call([
         PATH_TO_Vampire,
-        '--mode',
+        ' ',
         'casc',
         '--forced_options',
         'ss=off',
