@@ -8,6 +8,11 @@ def read_lines(file_path):
     return lines
 
 
+def write_lines(lines, file_path):
+    with open(file_path, "w+") as f:
+        f.write("\n".join(lines))
+
+
 def write_problem(thm, ranking, statements, problem_file):
     with open(problem_file, "w+") as f:
         f.write(statements[thm].replace("axiom", "conjecture") + "\n")
