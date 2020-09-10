@@ -22,28 +22,54 @@ def extract_useful_premises_from_E(lines):
     return names
 
 
+def extract_useful_premises_from_Vampire(lines):
+    names = []
+    for line in lines:
+        if "file" in line:
+            names.append(line.split(",")[-1][: -3])
+    return names
+
+
 def extract_selected_premises_from_Vampire(lines):
     names = [line.split(",")[0].replace("tff(", "")
              for line in lines if "tff" in line and "axiom" in line]
     return len(names) + 1
 
 
-def ranking_precision(problem_dir, output_dir, source):
+def ranking_precision(problem_dir, output_dir, ATP, problem_source):
     filenames = os.listdir(output_dir)
     precision = 0.0
     counter = 0
     for name in filenames:
+
         output_file = os.path.join(output_dir, name)
         lines = read_lines(output_file)
-        if "# Proof found!" in lines and "# SZS status Theorem" in lines:
+        if ATP == "E" and "# Proof found!" in lines and \
+                "# SZS status Theorem" in lines:
             counter += 1
             useful_names = extract_useful_premises_from_E(lines)
+
             problem_file = os.path.join(problem_dir, name)
-            if source == "Vampire":
+            if problem_source == "Vampire":
                 problem_len = extract_selected_premises_from_Vampire(
                     read_lines(problem_file))
             else:
                 problem_len = len(read_lines(problem_file))
+
+            precision += len(useful_names) / problem_len
+
+        if ATP == "Vampire" and "% Refutation found. Thanks to Tanya!" \
+                in lines:
+            counter += 1
+            useful_names = extract_useful_premises_from_Vampire(lines)
+
+            problem_file = os.path.join(problem_dir, name)
+            if problem_source == "Vampire":
+                problem_len = extract_selected_premises_from_Vampire(
+                    read_lines(problem_file))
+            else:
+                problem_len = len(read_lines(problem_file))
+
             precision += len(useful_names) / problem_len
 
     precision = precision / counter
@@ -158,9 +184,9 @@ def Vampire_proof_distribution(problem_dir, output_dir):
     return distribution
 
 
-# if __name__ == "__main__":
-#     problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average"
-#     output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average"
-#     a, b = ranking_precision(problem_dir, output_dir)
-#     print(a)
-#     print(b)
+if __name__ == "__main__":
+    problem_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/problem/average_inf"
+    output_dir = "/exp/home/qinghua/AxiomSelectionEvaluation-master/E_output/average_inf"
+    a, b = ranking_precision(problem_dir, output_dir)
+    print(a)
+    print(b)
