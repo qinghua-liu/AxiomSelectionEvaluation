@@ -30,10 +30,15 @@ def extract_useful_premises_from_Vampire(lines):
     return names
 
 
-def extract_selected_premises_from_Vampire(lines):
+def compute_selected_problem_from_Vampire(lines):
     names = [line.split(",")[0].replace("tff(", "")
              for line in lines if "tff" in line and "axiom" in line]
     return len(names) + 1
+
+
+def compute_selected_problem_from_E(lines):
+    new_lines = [line for line in lines if "fof" in line and "file" in line]
+    return len(new_lines)
 
 
 def ranking_precision(problem_dir, output_dir, ATP, problem_source):
@@ -50,11 +55,15 @@ def ranking_precision(problem_dir, output_dir, ATP, problem_source):
             useful_names = extract_useful_premises_from_E(lines)
 
             problem_file = os.path.join(problem_dir, name)
+            problem_lines = read_lines(problem_file)
+
             if problem_source == "Vampire":
-                problem_len = extract_selected_premises_from_Vampire(
-                    read_lines(problem_file))
-            else:
-                problem_len = len(read_lines(problem_file))
+                problem_len = compute_selected_problem_from_Vampire(
+                    problem_lines)
+            if problem_source == "E":
+                problem_len = compute_selected_problem_from_E(problem_lines)
+            if problem_source == "Q_selection":
+                problem_len = len(problem_lines)
 
             precision += len(useful_names) / problem_len
 
@@ -64,11 +73,15 @@ def ranking_precision(problem_dir, output_dir, ATP, problem_source):
             useful_names = extract_useful_premises_from_Vampire(lines)
 
             problem_file = os.path.join(problem_dir, name)
+            problem_lines = read_lines(problem_file)
+
             if problem_source == "Vampire":
-                problem_len = extract_selected_premises_from_Vampire(
-                    read_lines(problem_file))
-            else:
-                problem_len = len(read_lines(problem_file))
+                problem_len = compute_selected_problem_from_Vampire(
+                    problem_lines)
+            if problem_source == "E":
+                problem_len = compute_selected_problem_from_E(problem_lines)
+            if problem_source == "Q_selection":
+                problem_len = len(problem_lines)
 
             precision += len(useful_names) / problem_len
 
