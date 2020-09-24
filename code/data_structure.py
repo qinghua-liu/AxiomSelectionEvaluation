@@ -119,3 +119,46 @@ class Problem_Order():
 
     def build_problem_order(self, file_path):
         return read_lines(file_path)
+
+class Proofs:
+
+    def __init__(self, proofs_file):
+        self.proofs = self.build_proofs(proofs_file)
+        self.union_of_proofs = self.proofs_union()
+
+    def __len__(self):
+        return len(self.proofs)
+
+    def __getitem__(self, thm_name):
+        return self.proofs[thm_name]
+
+    def __iter__(self):
+        return self.proofs.__iter__()
+
+    def proofs_union(self):
+        union_of_proofs = dict()
+        for thm_name in self.proofs:
+            unions = set()
+            for proof in self.proofs[thm_name]:
+                unions.update(proof)
+            union_of_proofs[thm_name] = unions
+        return union_of_proofs
+
+    def sum_of_premises_in_proofs(self):
+        total_num = 0
+        for thm_name in self.union_of_proofs:
+            total_num += len(self.union_of_proofs[thm_name])
+        return total_num
+
+    def build_proofs(self, proofs_file):
+        proofs = dict()
+        lines = read_lines(proofs_file)
+        for line in lines:
+            raw_splits = line.split(":")
+            thm_name = raw_splits[0]
+            useful_prems = set(raw_splits[1].split(" "))
+            if thm_name not in proofs:
+                proofs[thm_name] = [useful_prems]
+            else:
+                proofs[thm_name].append(useful_prems)
+        return proofs
