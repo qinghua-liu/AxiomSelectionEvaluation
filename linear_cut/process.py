@@ -1,6 +1,8 @@
 import sys
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from chow_test import p_value
+import matplotlib.pyplot as plot
 
 sys.path.append("../code")
 from selection import scored_premises_from_csv_ranking
@@ -24,41 +26,37 @@ def linear_regression_selection(prem2socre):
     # N = len(scores)
     # candicate_scores = scores[last_zero_index + 1: first_inf_index]
     x = np.arange(len(scores), dtype=np.float64)
-    min_loss = float("inf")
-    min_cut = -1
-    flag = True
-    start_index = last_zero_index + 1
-    end_index = first_inf_index - 1
-    while flag:
-        for i in range(start_index, end_index):
-            left_scores = scores[:i].reshape(-1, 1)
-            right_scores = scores[i: end_index].reshape(-1, 1)
-            left_x = x[:i].reshape(-1, 1)
-            right_x = x[i: end_index].reshape(-1, 1)
-            left_regression = LinearRegression(
-                fit_intercept=True, normalize=True).fit(left_x, left_scores)
-            right_regression = LinearRegression(
-                fit_intercept=True, normalize=True).fit(right_x, right_scores)
-            pred_left_scores = left_regression.predict(left_x)
-            pref_right_scores = right_regression.predict(right_x)
-            loss = (mse_loss(left_scores, pred_left_scores)
-                    + mse_loss(right_scores, pref_right_scores)) / 2
-            if loss < min_loss:
-                min_loss = loss
-                min_cut = i - 1
 
-        cut_score = scores[min_cut]
-        actual_cut_index = np.max(np.where(cut_score == scores))
-        # print(actual_cut_index)
-        selected_axioms = prems[: actual_cut_index + 1]
-        # print(len(selected_axioms))
-        if len(selected_axioms) <= 300:
-            flag = False
+    start_index = last_zero_index + 1
+    end_index = first_inf_index
+    stop_flag = False
+    while not stop_flag:
+        p_min = float("inf")
+        min_cut = -1
+        for i in range(start_index + 1, end_index):
+            left_scores = scores[start_index: i]
+            right_scores = scores[i: end_index]
+            left_x = x[start_index: i]
+            right_x = x[i: end_index]
+            p, coeff_total, coeff_1, coeff_2 = p_value(
+                left_scores, left_x, right_scores, right_x)
+            print(coeff_total)
+            if p < p_min:
+                p_min = p
+                # the last index of left part
+                min_cut = i - 1
+        print(p_min)
+        print(min_cut)
+        if p_min >= 1e-2:
+            stop_flag = True
         else:
-            end_index = actual_cut_index
-    print(min_cut)
-    print(actual_cut_index)
+            actual_cut_index = np.max(np.where(scores[min_cut] == scores))
+            print(actual_cut_index)
+            end_index = actual_cut_index + 1
+    actual_cut_index = np.max(np.where(scores[min_cut] == scores))
+    selected_axioms = prems[: actual_cut_index + 1]
     print(len(selected_axioms))
+    print(actual_cut_index)
 
 
 a = scored_premises_from_csv_ranking("t47_funct_1", "../ranking")
