@@ -81,23 +81,22 @@ def linear_regression_selection(prem2socre):
     cut2prem = dict(zip(min_cuts, selected_prems_list))
     return prems, cut2prem
 
-def compute_density(thm, proofs, cut2prem):
+def compute_density(thm, proofs, ranking):
 
     useful_prem_list = proofs[thm]
-    for cutting in cut2prem:
-        max_indexs = []
-        for useful_prems in useful_prem_list:
-            try:
-                max_index = max([cut2prem[cutting].index(prem)
-                                 for prem in useful_prems])
-            except:
-                max_index = None
-            max_indexs.append(max_index)
-        temp_densities = [(len(useful_prems) + 1) / (max_index + 2)
-                          for index in max_indexs if index is not None]
-        density = max(temp_densities) if temp_densities else 0.0
-
-        print("cutting {} has density {}".format(cutting, density))
+    max_indexs = []
+    for useful_prems in useful_prem_list:
+        try:
+            max_index = max([ranking.index(prem)
+                             for prem in useful_prems])
+        except:
+            max_index = -1
+        max_indexs.append(max_index)
+    temp_densities = [(len(useful_prems) + 1) / (max_index + 2)
+                      for index in max_indexs]
+    density = max(temp_densities)
+    print(density)
+    return density
 
 
 def compute_ranking_selectivity(thm, proofs, ranking):
@@ -123,5 +122,5 @@ def compute_ranking_selectivity(thm, proofs, ranking):
 a = scored_premises_from_csv_ranking("t12_yellow_6", "../ranking")
 prems, cut2prem = linear_regression_selection(a)
 proofs = Proofs("../data/dependencies_from_proofs")
-compute_density("t12_yellow_6", proofs, cut2prem)
+compute_density("t12_yellow_6", proofs, prems)
 compute_ranking_selectivity("t12_yellow_6", proofs, prems)
