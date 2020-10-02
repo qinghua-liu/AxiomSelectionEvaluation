@@ -64,3 +64,5 @@ if __name__ == "__main__":
                                                args.problem_dir,
                                                args.output_dir)
                         for thm in tqdm(problem_order))
+
+# 197 vs 133
