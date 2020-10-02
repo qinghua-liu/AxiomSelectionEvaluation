@@ -2,7 +2,7 @@ import os
 import sys
 from tqdm import tqdm
 
-sys.path.append("..")
+sys.path.append("../code")
 from data_structure import Problem_Order
 from utils import read_lines
 
