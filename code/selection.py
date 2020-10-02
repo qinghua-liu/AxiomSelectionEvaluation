@@ -57,8 +57,8 @@ def scored_premises_from_csv_ranking(thm, ranking_dir, tuple_score=True):
     with open(ranking_file, "r") as f:
         csv_reader = csv.reader(f)
         rows = [pair for pair in csv_reader]
+    prems = [row[0] for row in rows]
     if tuple_score:
-        prems = [row[0] for row in rows]
         first_scores = [float(row[1].split(', ')[0].strip("["))
                         for row in rows]
         second_scores = [float(row[1].split(', ')[1].strip("]"))
