@@ -8,11 +8,20 @@ import json
 
 sys.path.append("../code")
 from selection import scored_premises_from_csv_ranking
-from data_structure import Proofs
+
+# from data_structure import Proofs
 
 
 def split_ranking(prem2socre):
-    # prems = [pair[0] for pair in prem2socre]
+    """
+    @Args:
+        the sorted list of pairs (prem, score)
+    @Returns:
+        scores: the sorted scores
+        last_zero_index: the index of the last zero in the scores list
+        first_inf_index: the index of the first inf in the scores list
+    """
+    prems = [pair[0] for pair in prem2socre]
     scores = np.array([pair[1] for pair in prem2socre])
     last_zero_index = np.max(np.where(0.0 == scores))
     first_inf_index = np.min(np.where(float("inf") == scores))
@@ -52,8 +61,8 @@ def linear_regression_selection(prem2socre):
         p_min = float("inf")
         min_cut = -1
         # min_coeff_total = np.zeros(2)
-        min_left_coeff = np.zeros(2)
-        min_right_coeff = np.zeros(2)
+        # min_left_coeff = np.zeros(2)
+        # min_right_coeff = np.zeros(2)
         for i in range(start_index + 1, end_index):
             left_scores = scores[start_index: i]
             right_scores = scores[i: end_index]
@@ -65,13 +74,13 @@ def linear_regression_selection(prem2socre):
                 p_min = p
                 # the last index of left part
                 min_cut = i
-                min_left_coeff = left_coeff
-                min_right_coeff = right_coeff
-        if p_min >= 1e-18:
+                # min_left_coeff = left_coeff
+                # min_right_coeff = right_coeff
+        if p_min >= 1e-56:
             stop_flag = True
         else:
-            plot_figure(min_left_coeff, min_right_coeff,
-                        x, scores, min_cut, start_index, end_index)
+            # plot_figure(min_left_coeff, min_right_coeff,
+            #             x, scores, min_cut, start_index, end_index)
             min_cuts.append(min_cut)
             end_index = min_cut
 
@@ -119,8 +128,10 @@ def compute_ranking_selectivity(thm, proofs, ranking):
     return density
 
 
-a = scored_premises_from_csv_ranking("t12_yellow_6", "../ranking")
-prems, cut2prem = linear_regression_selection(a)
-proofs = Proofs("../data/dependencies_from_proofs")
-compute_density("t12_yellow_6", proofs, prems)
-compute_ranking_selectivity("t12_yellow_6", proofs, prems)
+
+
+# a = scored_premises_from_csv_ranking("t12_yellow_6", "../ranking")
+# prems, cut2prem = linear_regression_selection(a)
+# proofs = Proofs("../data/dependencies_from_proofs")
+# compute_density("t12_yellow_6", proofs, prems)
+# compute_ranking_selectivity("t12_yellow_6", proofs, prems)
