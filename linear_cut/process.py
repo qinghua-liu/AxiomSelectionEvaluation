@@ -90,7 +90,7 @@ def linear_regression_selection(prem2socre):
     cut2prem = dict(zip(min_cuts, selected_prems_list))
     return prems, cut2prem
 
-def compute_density(thm, proofs, ranking):
+def compute_ranking_density(thm, proofs, ranking):
 
     useful_prem_list = proofs[thm]
     max_indexs = []
@@ -130,8 +130,8 @@ def compute_ranking_selectivity(thm, proofs, ranking):
 
 
 
-# a = scored_premises_from_csv_ranking("t12_yellow_6", "../ranking")
-# prems, cut2prem = linear_regression_selection(a)
+a = scored_premises_from_csv_ranking("t12_yellow_6", "../ranking")
+prems, cut2prem = linear_regression_selection(a)
 # proofs = Proofs("../data/dependencies_from_proofs")
 # compute_density("t12_yellow_6", proofs, prems)
 # compute_ranking_selectivity("t12_yellow_6", proofs, prems)
