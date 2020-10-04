@@ -79,15 +79,12 @@ def write_symbol_features(clause_file, symbol_features_file):
             f.write(str(i) + ": " + "  ".join(symbols) + "\n")
 
 
-def write_names(clause_file, name_file):
-    clauses = read_lines(clause_file)
-    raw_splits = [line.split(", plain,") for line in clauses]
-    names = [raw_split[0].replace("cnf(", "") for raw_split in raw_splits]
-    with open(name_file, "w+") as f:
-        f.write("\n".join(names))
-    # random_names = random.sample(names, 1000)
-    # with open(random_name_file, "w+") as f:
-    #     f.write("\n".join(random_names))
+# def write_names(clause_file, name_file):
+#     clauses = read_lines(clause_file)
+#     raw_splits = [line.split(", plain,") for line in clauses]
+#     names = [raw_split[0].replace("cnf(", "") for raw_split in raw_splits]
+#     with open(name_file, "w+") as f:
+#         f.write("\n".join(names))
 
 
 def problem_weights(symbol_features):
@@ -105,6 +102,8 @@ def problem_weights(symbol_features):
 
 
 if __name__ == "__main__":
+    write_atom_features("./clauseFile.txt", "./atom_features")
+    write_symbol_features("./clauseFile.txt", "./symbol_features")
     symbol_features = Symbol_Features("./symbol_features")
     atom_features = Atom_Features("./atom_features")
     f_weights, v_weight = problem_weights(symbol_features)
