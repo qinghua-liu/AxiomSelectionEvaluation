@@ -1,5 +1,4 @@
 import csv
-import json
 import os
 
 from utils import read_lines
@@ -89,42 +88,30 @@ def ranking_precision(problem_dir, output_dir, ATP, problem_source):
     return precision, counter
 
 
-def ranking_density(proof_file, ranking_dir):
-    with open(proof_file, "r") as f:
-        proof_dict = json.loads(f.read())
+def ranking_density(proofs, rankings):
 
-    enough_couner = 0
-    sum_ranking_density = 0.0
-    for name in proof_dict:
-        thm = proof_dict[name]["conjecture"]
-        ranking_file = os.path.join(ranking_dir, thm)
-        selected_prems = select_premises_with_score_zero(ranking_file)
+    sum_density = 0.0
 
-        prem_lists = \
-            [prem_list for prem_list in proof_dict[name]['premises'] if set(
-                prem_list).issubset(set(selected_prems))]
+    for thm_name in rankings:
+        useful_prem_list = proofs[thm_name]
+        ranked_premises = rankings[thm_name]
 
-        if prem_lists:
-            enough_couner += 1
-            density_scores = []
-            for prem_list in prem_lists:
-                try:
-                    max_prem_index = max(
-                        [selected_prems.index(prem) for prem in prem_list])
-                    max_position = max_prem_index + 1
-                except:
-                    max_position = 0
-                density_scores.append(
-                    (len(prem_list) + 1) / (max_position + 1))
-                print(density_scores)
+        temp = []
+        for useful_prems in useful_prem_list:
+            try:
+                max_index = max([ranked_premises.index(prem)
+                                 for prem in useful_prems])
+            except:
+                max_index = - 1
 
-                sum_ranking_density += max(density_scores)
+            temp.append((len(useful_prems) + 1) / (max_index + 2))
 
-    ranking_density = sum_ranking_density / len(proof_dict)
-    en_ranking_density = 0.0
-    if enough_couner > 0:
-        en_ranking_density = sum_ranking_density / enough_couner
-    return ranking_density, en_ranking_density
+        sum_density += max(temp)
+
+    density = sum_density / len(rankings)
+
+    return density
+
 
 
 def E_proof_statistic(output_dir):
