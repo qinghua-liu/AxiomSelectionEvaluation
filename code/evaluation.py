@@ -40,6 +40,24 @@ def compute_selected_problem_from_E(lines):
     return len(new_lines)
 
 
+def ranking_precision_in_pruney(pruney, problem_dir, problem_source):
+    precision = 0.0
+    for name in pruney:
+        problem_file = os.path.join(problem_dir, name)
+        problem_lines = read_lines(problem_file)
+        if problem_source == "Vampire":
+            problem_len = compute_selected_problem_from_Vampire(
+                problem_lines)
+        if problem_source == "E":
+            problem_len = compute_selected_problem_from_E(problem_lines)
+        if problem_source == "Q_selection":
+            problem_len = len(problem_lines)
+        proofs = pruney[name]
+        precision += max([len(proof) / problem_len for proof in proofs])
+    precision = precision / len(pruney)
+    return precision
+
+
 def ranking_precision(problem_dir, output_dir, ATP, problem_source):
     filenames = os.listdir(output_dir)
     precision = 0.0
@@ -111,7 +129,6 @@ def ranking_density(proofs, rankings):
     density = sum_density / len(rankings)
 
     return density
-
 
 
 def E_proof_statistic(output_dir):
