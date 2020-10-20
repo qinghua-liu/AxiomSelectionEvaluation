@@ -46,14 +46,23 @@ def ranking_precision_in_pruney(pruney, problem_dir, problem_source):
         problem_file = os.path.join(problem_dir, name)
         problem_lines = read_lines(problem_file)
         if problem_source == "Vampire":
-            problem_len = compute_selected_problem_from_Vampire(
-                problem_lines)
+            selected_names = [line.split(",")[0].replace("tff(", "")
+                              for line in problem_lines
+                              if "tff" in line and "axiom" in line]
         if problem_source == "E":
-            problem_len = compute_selected_problem_from_E(problem_lines)
+            selected_names = [line.split(", ")[0].replace(
+                "fof(", "") for line in problem_lines
+                if "fof" in line and "file" in line and "axiom" in line]
         if problem_source == "Q_selection":
-            problem_len = len(problem_lines)
+            selected_names = [line.split(",")[0].replace(
+                "fof(", "") for line in problem_lines
+                if "fof" in line and "axiom" in line]
+            print(selected_names)
         proofs = pruney[name]
-        precision += max([len(proof) / problem_len for proof in proofs])
+        temp = [len(proof)
+                for proof in proofs if proof.issubset(set(selected_names))]
+        if temp:
+            precision += (max(temp) + 1) / (len(selected_names) + 1)
     precision = precision / len(pruney)
     return precision
 
