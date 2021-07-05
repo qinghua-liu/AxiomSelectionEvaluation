@@ -1,18 +1,7 @@
-import sys
 import os
 import numpy as np
-# from sklearn.linear_model import LinearRegression
 from chow_test import p_value
 import matplotlib.pyplot as plt
-import argparse
-from joblib import Parallel, delayed
-from tqdm import tqdm
-
-sys.path.append("../code")
-from selection import scored_premises_from_csv_ranking
-from atp import run_E_prover, run_Vampire_prover
-from data_structure import Statements, Problem_Order
-from utils import write_problem
 
 
 def split_ranking(prem2socre):
@@ -105,8 +94,8 @@ def linear_regression_selection(prem2socre, show_figure=False):
 
     return selected_prems
 
-def compute_ranking_density(thm, proofs, ranking):
 
+def compute_ranking_density(thm, proofs, ranking):
     useful_prem_list = proofs[thm]
     max_indexs = []
     for useful_prems in useful_prem_list:
@@ -156,45 +145,45 @@ def process_problem(thm, ranking_dir,
     run_Vampire_prover(input_file, Vampire_output_file, cpu_time=60)
 
 
-def set_parameters():
-    params = argparse.ArgumentParser()
-    params.add_argument("--ranking_dir",
-                        type=str,
-                        default="../ranking/weighted_average",
-                        help="the root path to save ranking csv file")
-    params.add_argument("--problem_dir",
-                        type=str,
-                        default="../problem/weighted_average_chow_cut",
-                        help="the root path to save problems")
-    params.add_argument("--E_output_dir",
-                        type=str,
-                        default="../E_output/weighted_average_chow_cut",
-                        help="the root paht to save E outputs")
-    params.add_argument("--Vampire_output_dir",
-                        type=str,
-                        default="../Vampire_output/weighted_average_chow_cut",
-                        help="the root paht to save Vampire outputs")
-    args = params.parse_args(args=[])
-    return args
+# def set_parameters():
+#     params = argparse.ArgumentParser()
+#     params.add_argument("--ranking_dir",
+#                         type=str,
+#                         default="../ranking/weighted_average",
+#                         help="the root path to save ranking csv file")
+#     params.add_argument("--problem_dir",
+#                         type=str,
+#                         default="../problem/weighted_average_chow_cut",
+#                         help="the root path to save problems")
+#     params.add_argument("--E_output_dir",
+#                         type=str,
+#                         default="../E_output/weighted_average_chow_cut",
+#                         help="the root paht to save E outputs")
+#     params.add_argument("--Vampire_output_dir",
+#                         type=str,
+#                         default="../Vampire_output/weighted_average_chow_cut",
+#                         help="the root paht to save Vampire outputs")
+#     args = params.parse_args(args=[])
+#     return args
 
 
-if __name__ == "__main__":
-    statements = Statements("../data/statements")
-    problem_order = Problem_Order("../data/ProblemsInMMLOrder")
+# if __name__ == "__main__":
+#     statements = Statements("../data/statements")
+#     problem_order = Problem_Order("../data/ProblemsInMMLOrder")
 
-    args = set_parameters()
+#     args = set_parameters()
 
-    assert os.path.exists(args.ranking_dir)
-    if not os.path.exists(args.problem_dir):
-        os.makedirs(args.problem_dir)
-    if not os.path.exists(args.E_output_dir):
-        os.makedirs(args.E_output_dir)
-    if not os.path.exists(args.Vampire_output_dir):
-        os.makedirs(args.Vampire_output_dir)
+#     assert os.path.exists(args.ranking_dir)
+#     if not os.path.exists(args.problem_dir):
+#         os.makedirs(args.problem_dir)
+#     if not os.path.exists(args.E_output_dir):
+#         os.makedirs(args.E_output_dir)
+#     if not os.path.exists(args.Vampire_output_dir):
+#         os.makedirs(args.Vampire_output_dir)
 
-    Parallel(n_jobs=10)(delayed(process_problem)(thm, args.ranking_dir,
-                                                 statements,
-                                                 args.problem_dir,
-                                                 args.E_output_dir,
-                                                 args.Vampire_output_dir)
-                        for thm in tqdm(problem_order))
+#     Parallel(n_jobs=10)(delayed(process_problem)(thm, args.ranking_dir,
+#                                                  statements,
+#                                                  args.problem_dir,
+#                                                  args.E_output_dir,
+#                                                  args.Vampire_output_dir)
+#                         for thm in tqdm(problem_order))
